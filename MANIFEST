@@ -1,0 +1,13 @@
+Changes
+LICENSE
+MANIFEST
+META.yml
+Makefile.PL
+README
+dist.ini
+lib/Test/CleanNamespaces.pm
+t/basic.t
+t/lib/Dirty.pm
+t/lib/DoesNotCompile.pm
+t/lib/ExporterModule.pm
+t/self.t
