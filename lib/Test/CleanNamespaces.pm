@@ -2,7 +2,7 @@ use strict;
 use warnings;
 
 package Test::CleanNamespaces;
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 # ABSTRACT: Check for uncleaned imports
 
@@ -98,15 +98,15 @@ Test::CleanNamespaces - Check for uncleaned imports
 
 =head1 VERSION
 
-version 0.01
+version 0.02
 
 =head1 SYNOPSIS
 
-      use strict;
-      use warnings;
-      use Test::CleanNamespaces;
+    use strict;
+    use warnings;
+    use Test::CleanNamespaces;
 
-      all_namespaces_clean;
+    all_namespaces_clean;
 
 =head1 DESCRIPTION
 
@@ -121,14 +121,14 @@ All functions are exported by default.
 
 =head2 namespaces_clean
 
-      namespaces_clean('YourModule', 'AnotherModule');
+    namespaces_clean('YourModule', 'AnotherModule');
 
 Tests every specified namespace for uncleaned imports. If the module couldn't
 be loaded it will be skipped.
 
 =head2 all_namespaces_clean
 
-      all_namespaces_clean;
+    all_namespaces_clean;
 
 Runs C<namespaces_clean> for all modules in your distribution.
 
@@ -139,29 +139,37 @@ what you want to override if you're subclassing this module..
 
 =head2 build_namespaces_clean
 
-      my $coderef = Test::CleanNamespaces->build_namespaces_clean;
+    my $coderef = Test::CleanNamespaces->build_namespaces_clean;
 
 Returns a coderef that will be exported as C<namespaces_clean>.
 
+
+
 =head2 build_all_namespaces_clean
 
-      my $coderef = Test::CleanNamespaces->build_namespaces_clean;
+    my $coderef = Test::CleanNamespaces->build_namespaces_clean;
 
 Returns a coderef that will be exported as C<all_namespaces_clean>. It will use
 the C<find_modules> method to get the list of modules to check.
 
+
+
 =head2 find_modules
 
-      my @modules = Test::CleanNamespaces->find_modules;
+    my @modules = Test::CleanNamespaces->find_modules;
 
 Returns a list of modules in the current distribution. It'll search in
 C<blib/>, if it exists. C<lib/> will be searched otherwise.
 
+
+
 =head2 builder
 
-      my $builder = Test::CleanNamespaces->builder;
+    my $builder = Test::CleanNamespaces->builder;
 
 Returns the C<Test::Builder> used by the test functions.
+
+
 
 =head1 AUTHOR
 
@@ -172,7 +180,7 @@ Returns the C<Test::Builder> used by the test functions.
 This software is copyright (c) 2009 by Florian Ragwitz.
 
 This is free software; you can redistribute it and/or modify it under
-the same terms as perl itself.
+the same terms as the Perl 5 programming language system itself.
 
 =cut 
 
