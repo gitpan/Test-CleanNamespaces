@@ -2,8 +2,12 @@ use strict;
 use warnings;
 
 package Test::CleanNamespaces;
-our $VERSION = '0.02';
-
+BEGIN {
+  $Test::CleanNamespaces::AUTHORITY = 'cpan:FLORA';
+}
+BEGIN {
+  $Test::CleanNamespaces::VERSION = '0.03';
+}
 # ABSTRACT: Check for uncleaned imports
 
 use Class::MOP;
@@ -44,7 +48,7 @@ sub build_namespaces_clean {
             }
 
             my $meta = Class::MOP::class_of($ns) || Class::MOP::Class->initialize($ns);
-            my %methods = map { ($_ => 1) } keys %{ $meta->get_method_map || {} };
+            my %methods = map { ($_ => 1) } $meta->get_method_list;
             my @symbols = keys %{ $meta->get_all_package_symbols('CODE') || {} };
             my @imports = grep { !$methods{$_} } @symbols;
 
@@ -89,16 +93,11 @@ sub find_modules {
 1;
 
 __END__
-
 =pod
 
 =head1 NAME
 
 Test::CleanNamespaces - Check for uncleaned imports
-
-=head1 VERSION
-
-version 0.02
 
 =head1 SYNOPSIS
 
@@ -143,16 +142,12 @@ what you want to override if you're subclassing this module..
 
 Returns a coderef that will be exported as C<namespaces_clean>.
 
-
-
 =head2 build_all_namespaces_clean
 
     my $coderef = Test::CleanNamespaces->build_namespaces_clean;
 
 Returns a coderef that will be exported as C<all_namespaces_clean>. It will use
 the C<find_modules> method to get the list of modules to check.
-
-
 
 =head2 find_modules
 
@@ -161,15 +156,11 @@ the C<find_modules> method to get the list of modules to check.
 Returns a list of modules in the current distribution. It'll search in
 C<blib/>, if it exists. C<lib/> will be searched otherwise.
 
-
-
 =head2 builder
 
     my $builder = Test::CleanNamespaces->builder;
 
 Returns the C<Test::Builder> used by the test functions.
-
-
 
 =head1 AUTHOR
 
@@ -177,11 +168,10 @@ Returns the C<Test::Builder> used by the test functions.
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2009 by Florian Ragwitz.
+This software is copyright (c) 2010 by Florian Ragwitz.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
-=cut 
-
+=cut
 
