@@ -1,13 +1,8 @@
-Revision history for {{$dist->name}}
+0.03  Fri, 07 May 2010 22:29:00 +0200
+  * Stop using the deprecated get_method_map method.
 
-{{$NEXT}}
-  - remove use of deprecated Class::MOP::load_class
+0.02  Thu, 28 May 2009 06:05:26 +0200
+  * Declare dependency on Test::Tester.
 
-0.03   2010-05-07 22:29:00 +0200
-  - Stop using the deprecated get_method_map method.
-
-0.02   2009-05-28 06:05:26 +0200
-  - Declare dependency on Test::Tester.
-
-0.01   2009-05-16 18:32:11 +0200
-  - Initial release.
+0.01  Sat, 16 May 2009 18:32:11 +0200
+  * Initial release.
