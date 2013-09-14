@@ -5,12 +5,13 @@ package Test::CleanNamespaces;
 BEGIN {
   $Test::CleanNamespaces::AUTHORITY = 'cpan:FLORA';
 }
-BEGIN {
+{
   $Test::CleanNamespaces::VERSION = '0.03';
 }
 # ABSTRACT: Check for uncleaned imports
 
 use Class::MOP;
+use Module::Runtime 'use_module';
 use Sub::Name 'subname';
 use Test::Builder;
 use File::Find::Rule;
@@ -42,7 +43,7 @@ sub build_namespaces_clean {
         local $@;
 
         for my $ns (@namespaces) {
-            unless (eval { Class::MOP::load_class($ns); 1 }) {
+            unless (eval { use_module($ns); 1 }) {
                 $class->builder->skip("failed to load ${ns}: $@");
                 next;
             }
@@ -93,7 +94,10 @@ sub find_modules {
 1;
 
 __END__
+
 =pod
+
+=encoding utf-8
 
 =head1 NAME
 
@@ -164,14 +168,13 @@ Returns the C<Test::Builder> used by the test functions.
 
 =head1 AUTHOR
 
-  Florian Ragwitz <rafl@debian.org>
+Florian Ragwitz <rafl@debian.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2010 by Florian Ragwitz.
+This software is copyright (c) 2013 by Florian Ragwitz.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
