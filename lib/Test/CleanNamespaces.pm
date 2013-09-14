@@ -3,14 +3,17 @@ use warnings;
 
 package Test::CleanNamespaces;
 BEGIN {
-  $Test::CleanNamespaces::AUTHORITY = 'cpan:FLORA';
+  $Test::CleanNamespaces::AUTHORITY = 'cpan:ETHER';
 }
-BEGIN {
-  $Test::CleanNamespaces::VERSION = '0.03';
+{
+  $Test::CleanNamespaces::VERSION = '0.04';
 }
+# git description: 0.03-4-ge407b67
+
 # ABSTRACT: Check for uncleaned imports
 
 use Class::MOP;
+use Module::Runtime 'use_module';
 use Sub::Name 'subname';
 use Test::Builder;
 use File::Find::Rule;
@@ -42,7 +45,7 @@ sub build_namespaces_clean {
         local $@;
 
         for my $ns (@namespaces) {
-            unless (eval { Class::MOP::load_class($ns); 1 }) {
+            unless (eval { use_module($ns); 1 }) {
                 $class->builder->skip("failed to load ${ns}: $@");
                 next;
             }
@@ -93,11 +96,16 @@ sub find_modules {
 1;
 
 __END__
+
 =pod
 
 =head1 NAME
 
 Test::CleanNamespaces - Check for uncleaned imports
+
+=head1 VERSION
+
+version 0.04
 
 =head1 SYNOPSIS
 
@@ -164,14 +172,13 @@ Returns the C<Test::Builder> used by the test functions.
 
 =head1 AUTHOR
 
-  Florian Ragwitz <rafl@debian.org>
+Florian Ragwitz <rafl@debian.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2010 by Florian Ragwitz.
+This software is copyright (c) 2009 by Florian Ragwitz.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
