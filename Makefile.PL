@@ -33,16 +33,18 @@ my %WriteMakefileArgs = (
     "warnings" => 0
   },
   "TEST_REQUIRES" => {
-    "CPAN::Meta::Check" => "0.007",
+    "ExtUtils::MakeMaker" => 0,
+    "File::Spec" => 0,
     "FindBin" => 0,
     "IO::Handle" => 0,
     "IPC::Open3" => 0,
-    "Test::CheckDeps" => "0.006",
+    "List::Util" => 0,
+    "Test::CheckDeps" => "0.007",
     "Test::More" => "0.94",
     "Test::Tester" => 0,
     "lib" => 0
   },
-  "VERSION" => "0.04",
+  "VERSION" => "0.05",
   "test" => {
     "TESTS" => "t/*.t"
   }

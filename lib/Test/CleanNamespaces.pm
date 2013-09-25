@@ -6,9 +6,9 @@ BEGIN {
   $Test::CleanNamespaces::AUTHORITY = 'cpan:ETHER';
 }
 {
-  $Test::CleanNamespaces::VERSION = '0.04';
+  $Test::CleanNamespaces::VERSION = '0.05';
 }
-# git description: 0.03-4-ge407b67
+# git description: v0.04-1-gae58111
 
 # ABSTRACT: Check for uncleaned imports
 
@@ -105,7 +105,7 @@ Test::CleanNamespaces - Check for uncleaned imports
 
 =head1 VERSION
 
-version 0.04
+version 0.05
 
 =head1 SYNOPSIS
 
