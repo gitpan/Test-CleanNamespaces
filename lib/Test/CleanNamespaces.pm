@@ -3,23 +3,21 @@ use warnings;
 
 package Test::CleanNamespaces;
 BEGIN {
-  $Test::CleanNamespaces::AUTHORITY = 'cpan:ETHER';
+  $Test::CleanNamespaces::AUTHORITY = 'cpan:FLORA';
 }
-{
-  $Test::CleanNamespaces::VERSION = '0.05';
-}
-# git description: v0.04-1-gae58111
-
+# git description: v0.05-21-ge8f80e8
+$Test::CleanNamespaces::VERSION = '0.06';
 # ABSTRACT: Check for uncleaned imports
 
-use Class::MOP;
 use Module::Runtime 'use_module';
 use Sub::Name 'subname';
+use Sub::Identify qw(sub_fullname stash_name);
+use Package::Stash;
 use Test::Builder;
 use File::Find::Rule;
 use File::Find::Rule::Perl;
 use File::Spec::Functions 'splitdir';
-use namespace::autoclean;
+use namespace::clean;
 
 use Sub::Exporter -setup => {
     exports => [
@@ -37,6 +35,50 @@ BEGIN {
     *import = subname __PACKAGE__ . '::import', \&import;
 }
 
+# =head1 SYNOPSIS
+#
+#     use strict;
+#     use warnings;
+#     use Test::CleanNamespaces;
+#
+#     all_namespaces_clean;
+#
+# =head1 DESCRIPTION
+#
+# This module lets you check your module's namespaces for imported functions you
+# might have forgotten to remove with L<namespace::autoclean> or
+# L<namespace::clean> and are therefore available to be called as methods, which
+# usually isn't want you want.
+#
+# =head1 FUNCTIONS
+#
+# All functions are exported by default.
+#
+# =head2 namespaces_clean
+#
+#     namespaces_clean('YourModule', 'AnotherModule');
+#
+# Tests every specified namespace for uncleaned imports. If the module couldn't
+# be loaded it will be skipped.
+#
+# =head2 all_namespaces_clean
+#
+#     all_namespaces_clean;
+#
+# Runs C<namespaces_clean> for all modules in your distribution.
+#
+# =head1 METHODS
+#
+# The exported functions are constructed using the the following methods. This is
+# what you want to override if you're subclassing this module.
+#
+# =head2 build_namespaces_clean
+#
+#     my $coderef = Test::CleanNamespaces->build_namespaces_clean;
+#
+# Returns a coderef that will be exported as C<namespaces_clean>.
+#
+# =cut
 
 sub build_namespaces_clean {
     my ($class, $name) = @_;
@@ -50,19 +92,27 @@ sub build_namespaces_clean {
                 next;
             }
 
-            my $meta = Class::MOP::class_of($ns) || Class::MOP::Class->initialize($ns);
-            my %methods = map { ($_ => 1) } $meta->get_method_list;
-            my @symbols = keys %{ $meta->get_all_package_symbols('CODE') || {} };
-            my @imports = grep { !$methods{$_} } @symbols;
+            my $symbols = Package::Stash->new($ns)->get_all_symbols('CODE');
+            my @imports = grep { stash_name($symbols->{$_}) ne $ns } keys %$symbols;
 
             $class->builder->ok(!@imports, "${ns} contains no imported functions");
+
+            my %imports; @imports{@imports} = map { sub_fullname($symbols->{$_}) } @imports;
             $class->builder->diag(
-                $class->builder->explain('remaining imports: ' => \@imports)
+                $class->builder->explain('remaining imports: ' => \%imports)
             ) if @imports;
         }
     };
 }
 
+# =head2 build_all_namespaces_clean
+#
+#     my $coderef = Test::CleanNamespaces->build_namespaces_clean;
+#
+# Returns a coderef that will be exported as C<all_namespaces_clean>. It will use
+# the C<find_modules> method to get the list of modules to check.
+#
+# =cut
 
 sub build_all_namespaces_clean {
     my ($class, $name) = @_;
@@ -74,6 +124,14 @@ sub build_all_namespaces_clean {
     };
 }
 
+# =head2 find_modules
+#
+#     my @modules = Test::CleanNamespaces->find_modules;
+#
+# Returns a list of modules in the current distribution. It'll search in
+# C<blib/>, if it exists. C<lib/> will be searched otherwise.
+#
+# =cut
 
 sub find_modules {
     my ($class) = @_;
@@ -87,6 +145,13 @@ sub find_modules {
     return @modules;
 }
 
+# =head2 builder
+#
+#     my $builder = Test::CleanNamespaces->builder;
+#
+# Returns the C<Test::Builder> used by the test functions.
+#
+# =cut
 
 {
     my $Test = Test::Builder->new;
@@ -99,13 +164,17 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
+=for :stopwords Florian Ragwitz Karen Etheridge
+
 =head1 NAME
 
 Test::CleanNamespaces - Check for uncleaned imports
 
 =head1 VERSION
 
-version 0.05
+version 0.06
 
 =head1 SYNOPSIS
 
@@ -119,7 +188,7 @@ version 0.05
 
 This module lets you check your module's namespaces for imported functions you
 might have forgotten to remove with L<namespace::autoclean> or
-L<namespace::clean> and are therefor available to be called as methods, which
+L<namespace::clean> and are therefore available to be called as methods, which
 usually isn't want you want.
 
 =head1 FUNCTIONS
@@ -142,7 +211,7 @@ Runs C<namespaces_clean> for all modules in your distribution.
 =head1 METHODS
 
 The exported functions are constructed using the the following methods. This is
-what you want to override if you're subclassing this module..
+what you want to override if you're subclassing this module.
 
 =head2 build_namespaces_clean
 
@@ -180,5 +249,9 @@ This software is copyright (c) 2009 by Florian Ragwitz.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
+
+=head1 CONTRIBUTOR
+
+Karen Etheridge <ether@cpan.org>
 
 =cut

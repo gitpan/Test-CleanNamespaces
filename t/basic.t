@@ -1,35 +1,85 @@
 use strict;
 use warnings;
-use Test::Tester tests => 21;
+use Test::Tester;
 use Test::More;
+use Test::Fatal;
 
 use Test::CleanNamespaces;
 
-use FindBin;
-use lib "$FindBin::Bin/lib";
+use lib 't/lib';
 
 {
-    check_test(sub { namespaces_clean('Test::CleanNamespaces') }, {
-        ok => 1,
-        name => 'Test::CleanNamespaces contains no imported functions',
-    }, 'namespaces_clean success');
+    my (undef, @results) = run_tests(sub { namespaces_clean('Test::CleanNamespaces') });
+    cmp_results(
+        \@results,
+        [ {
+            ok => 1,
+            name => 'Test::CleanNamespaces contains no imported functions',
+        } ],
+        'namespaces_clean success',
+    );
 }
 
 {
-    my (undef, $result) = check_test(sub { namespaces_clean('DoesNotCompile') }, {
+    my (undef, @results) = check_test(sub { namespaces_clean('DoesNotCompile') }, {
         ok => 1,
         type => 'skip',
     }, 'namespace_clean compilation fail');
 
-    like($result->{reason}, qr/failed to load/, 'useful diagnostics on compilation fail');
+    like($results[0]{reason}, qr/failed to load/, 'useful diagnostics on compilation fail')
+        or diag 'got result: ', explain(\@results);
 }
 
+foreach my $package (qw(Dirty SubDirty))
 {
-    my (undef, $result) = check_test(sub { namespaces_clean('Dirty') }, {
-        ok => 0,
-        name => 'Dirty contains no imported functions',
-    }, 'unclean namespace');
+    my (undef, @results) = run_tests(sub { namespaces_clean($package) });
+    cmp_results(
+        \@results,
+        [ {
+            ok => 0,
+            name => $package . ' contains no imported functions',
+        } ],
+        $package . ' has an unclean namespace',
+    );
 
-    like($result->{diag}, qr/remaining imports/, 'diagnostic mentions "remaining imports"');
-    like($result->{diag}, qr/stuff/, 'diagnostic lists the remaining imports');
+    like($results[0]{diag}, qr/remaining imports/, $package . ': diagnostic mentions "remaining imports"')
+        or diag 'got result: ', explain(\@results);
+    like($results[0]{diag}, qr/'stuff'\s+=>\s+'(Sub)?ExporterModule::stuff'/,
+        $package . ': diagnostic lists the remaining imports')
+        or diag 'got result: ', explain(\@results);
+
+    can_ok($package, 'method');
+    is($package->callstuff, 'called stuff', $package . ' called stuff via other sub');
+
+    is(
+        exception { $package->stuff },
+        undef,
+        'can call stuff as a class method on ' . $package . ' - it was not cleaned',
+    );
 }
+
+foreach my $package (qw(Clean SubClean))
+{
+    my (undef, @results) = run_tests(sub { namespaces_clean($package) });
+    cmp_results(
+        \@results,
+        [ {
+            ok => 1,
+            name => $package . ' contains no imported functions',
+        } ],
+        $package . ' has a clean namespace',
+    );
+
+    can_ok($package, 'method');
+    is($package->callstuff, 'called stuff', $package . ' called stuff via other sub');
+
+    like(
+        exception { $package->stuff },
+        qr/Can't locate object method "stuff" via package "$package"/,
+        'cannot call stuff as a class method on ' . $package . ' - it was cleaned',
+    );
+}
+
+ok(!exists($INC{'Class/MOP.pm'}), 'Class::MOP has not been loaded');
+
+done_testing;

@@ -3,9 +3,8 @@ use warnings;
 
 package ExporterModule;
 
-use Sub::Exporter -setup => {
-    exports => ['stuff'],
-};
+use Exporter 'import';
+our @EXPORT_OK = qw(stuff);
 
 sub stuff { }
 

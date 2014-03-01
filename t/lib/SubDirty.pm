@@ -1,9 +1,9 @@
 use strict;
 use warnings;
 
-package Dirty;
+package SubDirty;
 
-use ExporterModule qw/stuff/;
+use SubExporterModule qw/stuff/;
 
 sub method { }
 
