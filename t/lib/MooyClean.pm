@@ -1,8 +1,8 @@
 use strict;
 use warnings;
-package MooseyClean;
+package MooyClean;
 
-use Moose;
+use Moo;
 use Scalar::Util 'refaddr';
 use namespace::clean;
 

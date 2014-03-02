@@ -3,12 +3,12 @@ use warnings;
 
 use Test::Tester;
 use Test::More;
-use Test::Requires 'Moose';
+use Test::Requires 'Moo';
 use Test::CleanNamespaces;
 
 use lib 't/lib';
 
-foreach my $package (qw(MooseyDirty))
+foreach my $package (qw(MooyDirty))
 {
     my (undef, @results) = run_tests(sub { namespaces_clean($package) });
     cmp_results(
@@ -24,7 +24,7 @@ foreach my $package (qw(MooseyDirty))
     ok($package->can('refaddr'), 'refaddr import still available');
 }
 
-foreach my $package (qw(MooseyClean MooseyRole MooseyComposer))
+foreach my $package (qw(MooyClean MooyRole MooyComposer))
 {
     my (undef, @results) = run_tests(sub { namespaces_clean($package) });
     cmp_results(

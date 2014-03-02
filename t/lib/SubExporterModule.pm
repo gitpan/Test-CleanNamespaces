@@ -1,6 +1,5 @@
 use strict;
 use warnings;
-
 package SubExporterModule;
 
 use Sub::Exporter -setup => {

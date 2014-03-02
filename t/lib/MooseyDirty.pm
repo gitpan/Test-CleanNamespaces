@@ -1,3 +1,5 @@
+use strict;
+use warnings;
 package MooseyDirty;
 
 use Moose;

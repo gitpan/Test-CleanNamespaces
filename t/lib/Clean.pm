@@ -1,6 +1,5 @@
 use strict;
 use warnings;
-
 package Clean;
 
 use ExporterModule qw/stuff/;

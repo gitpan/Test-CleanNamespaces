@@ -60,6 +60,7 @@ my $static_prereqs = do { my $x = {
                                       'Dist::Zilla::Plugin::GitHub::Update' => '0',
                                       'Dist::Zilla::Plugin::GithubMeta' => '0',
                                       'Dist::Zilla::Plugin::MakeMaker::Fallback' => '0',
+                                      'Dist::Zilla::Plugin::MetaResources' => '0',
                                       'Dist::Zilla::Plugin::ModuleBuildTiny' => '0.004',
                                       'Dist::Zilla::Plugin::Prereqs' => '0',
                                       'Dist::Zilla::Plugin::Test::CleanNamespaces' => '0',
@@ -91,6 +92,7 @@ my $static_prereqs = do { my $x = {
                                       'File::Spec::Functions' => '0',
                                       'Module::Runtime' => '0',
                                       'Package::Stash' => '0',
+                                      'Role::Tiny' => '0',
                                       'Sub::Exporter' => '0',
                                       'Sub::Identify' => '0',
                                       'Sub::Name' => '0',
@@ -110,14 +112,13 @@ my $static_prereqs = do { my $x = {
                                    'Exporter' => '0',
                                    'ExtUtils::MakeMaker' => '0',
                                    'List::Util' => '0',
-                                   'Moose' => '0',
-                                   'Mouse' => '0',
                                    'Scalar::Util' => '0',
                                    'Test::Fatal' => '0',
                                    'Test::More' => '0',
                                    'Test::Requires' => '0',
                                    'Test::Tester' => '0',
                                    'lib' => '0',
+                                   'parent' => '0',
                                    'version' => '0'
                                  }
                  }

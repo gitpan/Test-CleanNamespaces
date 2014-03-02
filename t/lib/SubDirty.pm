@@ -1,6 +1,5 @@
 use strict;
 use warnings;
-
 package SubDirty;
 
 use SubExporterModule qw/stuff/;

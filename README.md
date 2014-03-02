@@ -4,7 +4,7 @@ Test::CleanNamespaces - Check for uncleaned imports
 
 # VERSION
 
-version 0.06
+version 0.07
 
 # SYNOPSIS
 

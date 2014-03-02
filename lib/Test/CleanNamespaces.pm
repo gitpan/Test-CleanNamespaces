@@ -5,8 +5,8 @@ package Test::CleanNamespaces;
 BEGIN {
   $Test::CleanNamespaces::AUTHORITY = 'cpan:FLORA';
 }
-# git description: v0.05-21-ge8f80e8
-$Test::CleanNamespaces::VERSION = '0.06';
+# git description: v0.06-6-g26187ae
+$Test::CleanNamespaces::VERSION = '0.07';
 # ABSTRACT: Check for uncleaned imports
 
 use Module::Runtime 'use_module';
@@ -93,7 +93,31 @@ sub build_namespaces_clean {
             }
 
             my $symbols = Package::Stash->new($ns)->get_all_symbols('CODE');
-            my @imports = grep { stash_name($symbols->{$_}) ne $ns } keys %$symbols;
+            my @imports;
+
+            if ($ns->isa('Moose::Object'))
+            {
+                my $meta = Moose::Util::find_meta($ns);
+                my %subs = %$symbols;
+                delete @subs{ $meta->get_method_list };
+                @imports = keys %subs;
+            }
+            elsif ($ns->isa('Mouse::Object'))
+            {
+                my $meta = Mouse::Util::class_of($ns);
+                my %subs = %$symbols;
+                delete @subs{ $meta->get_all_method_names };
+                @imports = keys %subs;
+            }
+            else
+            {
+                @imports = grep {
+                    my $stash = stash_name($symbols->{$_});
+                    $stash ne $ns
+                        and $stash ne 'Role::Tiny'
+                        and not eval { require Role::Tiny; Role::Tiny->is_role($stash) }
+                } keys %$symbols;
+            }
 
             $class->builder->ok(!@imports, "${ns} contains no imported functions");
 
@@ -174,7 +198,7 @@ Test::CleanNamespaces - Check for uncleaned imports
 
 =head1 VERSION
 
-version 0.06
+version 0.07
 
 =head1 SYNOPSIS
 

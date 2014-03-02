@@ -39,6 +39,7 @@
             "Dist::Zilla::Plugin::GitHub::Update" : "0",
             "Dist::Zilla::Plugin::GithubMeta" : "0",
             "Dist::Zilla::Plugin::MakeMaker::Fallback" : "0",
+            "Dist::Zilla::Plugin::MetaResources" : "0",
             "Dist::Zilla::Plugin::ModuleBuildTiny" : "0.004",
             "Dist::Zilla::Plugin::Prereqs" : "0",
             "Dist::Zilla::Plugin::Test::CleanNamespaces" : "0",
@@ -70,6 +71,7 @@
             "File::Spec::Functions" : "0",
             "Module::Runtime" : "0",
             "Package::Stash" : "0",
+            "Role::Tiny" : "0",
             "Sub::Exporter" : "0",
             "Sub::Identify" : "0",
             "Sub::Name" : "0",
@@ -89,14 +91,13 @@
             "Exporter" : "0",
             "ExtUtils::MakeMaker" : "0",
             "List::Util" : "0",
-            "Moose" : "0",
-            "Mouse" : "0",
             "Scalar::Util" : "0",
             "Test::Fatal" : "0",
             "Test::More" : "0",
             "Test::Requires" : "0",
             "Test::Tester" : "0",
             "lib" : "0",
+            "parent" : "0",
             "version" : "0"
          }
       }
@@ -104,7 +105,7 @@
    "provides" : {
       "Test::CleanNamespaces" : {
          "file" : "lib/Test/CleanNamespaces.pm",
-         "version" : "0.06"
+         "version" : "0.07"
       }
    },
    "release_status" : "stable",
@@ -118,9 +119,11 @@
          "type" : "git",
          "url" : "https://github.com/karenetheridge/Test-CleanNamespaces.git",
          "web" : "https://github.com/karenetheridge/Test-CleanNamespaces"
-      }
+      },
+      "x_IRC" : "irc://irc.perl.org/#perl-qa",
+      "x_MailingList" : "http://lists.perl.org/list/perl-qa.html"
    },
-   "version" : "0.06",
+   "version" : "0.07",
    "x_Dist_Zilla" : {
       "perl" : {
          "version" : "5.019009"
@@ -707,6 +710,11 @@
                }
             },
             "name" : "DevelopRecommends",
+            "version" : "5.013"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::MetaResources",
+            "name" : "MetaResources",
             "version" : "5.013"
          },
          {

@@ -1,6 +1,5 @@
 use strict;
 use warnings;
-
 package ExporterModule;
 
 use Exporter 'import';

@@ -1,5 +1,10 @@
 Revision history for Test-CleanNamespaces
 
+0.07      2014-03-02 06:55:41Z
+  - remove test prereqs that are meant to be optional (added in v0.06)
+  - fix handling of subs composed from a role (Moose::Role, Moo::Role,
+    Mouse::Role, and Role::Tiny), broken in v0.06
+
 0.06      2014-03-01 19:14:39Z
   - lots more tests
   - in failing tests, identify the source of the uncleaned sub(s)

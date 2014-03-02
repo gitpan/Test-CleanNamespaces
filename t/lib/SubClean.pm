@@ -1,6 +1,5 @@
 use strict;
 use warnings;
-
 package SubClean;
 
 use SubExporterModule qw/stuff/;
