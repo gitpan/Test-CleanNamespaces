@@ -23,6 +23,8 @@ t/lib/ExporterModule.pm
 t/lib/MooseyClean.pm
 t/lib/MooseyComposer.pm
 t/lib/MooseyDirty.pm
+t/lib/MooseyParameterizedComposer.pm
+t/lib/MooseyParameterizedRole.pm
 t/lib/MooseyRole.pm
 t/lib/MooyClean.pm
 t/lib/MooyComposer.pm
@@ -37,6 +39,7 @@ t/lib/SubClean.pm
 t/lib/SubDirty.pm
 t/lib/SubExporterModule.pm
 t/moo.t
+t/moose-parameterized-role.t
 t/moose.t
 t/mouse.t
 t/role_tiny.t

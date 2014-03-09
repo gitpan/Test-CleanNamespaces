@@ -3,7 +3,9 @@ use warnings;
 package Role;
 
 use Role::Tiny;
+use Scalar::Util 'reftype';
+use namespace::clean;
 
-sub child_stuff {}
+sub role_stuff {}
 
 1;

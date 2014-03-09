@@ -3,12 +3,14 @@ use warnings;
 
 use Test::Tester;
 use Test::More;
-use Test::Requires 'Role::Tiny';
+
+# blech! but Test::Requires does a stringy eval, so this works...
+use Test::Requires { 'Moose' => '()', 'MooseX::Role::Parameterized' => '()' };
 use Test::CleanNamespaces;
 
 use lib 't/lib';
 
-foreach my $package (qw(Clean Role Composer))
+foreach my $package (qw(MooseyParameterizedRole MooseyParameterizedComposer))
 {
     my (undef, @results) = run_tests(sub { namespaces_clean($package) });
     cmp_results(
@@ -21,11 +23,12 @@ foreach my $package (qw(Clean Role Composer))
     );
     diag 'got result: ', explain(\@results) if not Test::Builder->new->is_passing;
 
-    ok($package->can('method'), 'method from base class is still available')
-        if $package eq 'Clean' or $package eq 'Composer';
+    ok($package->can('stuff'), 'stuff method from base class is still available')
+        if $package eq 'MooseyParameterizedComposer';
 
-    ok($package->can('role_stuff'), 'role_stuff method from role is still available')
-        if $package eq 'Role';
+    ok($package->can('role_stuff'), 'role_stuff method from role is still available');
+
+    ok(!$package->can('refaddr'), 'refaddr import not still available');
 
     ok(!$package->can($_), "$_ import not still available") foreach qw(refaddr weaken reftype);
 }

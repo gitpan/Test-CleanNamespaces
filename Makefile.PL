@@ -85,7 +85,6 @@ my %WriteMakefileArgs = (
     "File::Spec::Functions" => 0,
     "Module::Runtime" => 0,
     "Package::Stash" => 0,
-    "Role::Tiny" => 0,
     "Sub::Exporter" => 0,
     "Sub::Identify" => 0,
     "Sub::Name" => 0,
@@ -107,7 +106,7 @@ my %WriteMakefileArgs = (
     "parent" => 0,
     "version" => 0
   },
-  "VERSION" => "0.07",
+  "VERSION" => "0.08",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -123,7 +122,6 @@ my %FallbackPrereqs = (
   "List::Util" => 0,
   "Module::Runtime" => 0,
   "Package::Stash" => 0,
-  "Role::Tiny" => 0,
   "Scalar::Util" => 0,
   "Sub::Exporter" => 0,
   "Sub::Identify" => 0,
