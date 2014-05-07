@@ -4,7 +4,7 @@ package Clean;
 
 use ExporterModule qw/stuff/;
 use Scalar::Util 'refaddr';
-use namespace::clean;   # clean 'stuff' at end of compilation
+use namespace::clean;
 
 sub method { }
 

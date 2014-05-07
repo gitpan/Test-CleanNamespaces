@@ -45,35 +45,35 @@ my %exclude = map {; $_ => 1 } qw(
 my $static_prereqs = do { my $x = {
        'configure' => {
                         'requires' => {
-                                        'ExtUtils::MakeMaker' => '6.30',
-                                        'Module::Build::Tiny' => '0.035'
+                                        'ExtUtils::MakeMaker' => '6.30'
                                       }
                       },
        'develop' => {
                       'recommends' => {
-                                        'Dist::Zilla::PluginBundle::Author::ETHER' => '0.052',
+                                        'Dist::Zilla::PluginBundle::Author::ETHER' => '0.061',
                                         'Mouse' => '0'
                                       },
                       'requires' => {
-                                      'Dist::Zilla' => '5.013',
+                                      'Dist::Zilla' => '5.016',
                                       'Dist::Zilla::Plugin::ContributorsFromGit' => '0',
                                       'Dist::Zilla::Plugin::GitHub::Update' => '0',
                                       'Dist::Zilla::Plugin::GithubMeta' => '0',
-                                      'Dist::Zilla::Plugin::MakeMaker::Fallback' => '0',
+                                      'Dist::Zilla::Plugin::MakeMaker' => '0',
                                       'Dist::Zilla::Plugin::MetaResources' => '0',
-                                      'Dist::Zilla::Plugin::ModuleBuildTiny' => '0.004',
                                       'Dist::Zilla::Plugin::Prereqs' => '0',
+                                      'Dist::Zilla::Plugin::Prereqs::Soften' => '0',
                                       'Dist::Zilla::Plugin::Test::CleanNamespaces' => '0',
                                       'Dist::Zilla::PluginBundle::Author::ETHER' => '0.025',
                                       'File::Spec' => '0',
                                       'IO::Handle' => '0',
                                       'IPC::Open3' => '0',
+                                      'Moo' => '0',
                                       'Moose' => '0',
                                       'MooseX::Role::Parameterized' => '0',
                                       'Pod::Coverage::TrustPod' => '0',
                                       'Pod::Weaver' => '4',
                                       'Pod::Weaver::Section::Contributors' => '0',
-                                      'Role::Tiny' => '0',
+                                      'Role::Tiny' => '1.003000',
                                       'Test::CPAN::Changes' => '0.19',
                                       'Test::CPAN::Meta' => '0',
                                       'Test::CleanNamespaces' => '>= 0.04, != 0.06',
@@ -86,7 +86,8 @@ my $static_prereqs = do { my $x = {
                     },
        'runtime' => {
                       'recommends' => {
-                                        'Package::Stash::XS' => '0'
+                                        'Package::Stash::XS' => '0',
+                                        'Role::Tiny' => '0'
                                       },
                       'requires' => {
                                       'File::Find::Rule' => '0',
@@ -107,18 +108,30 @@ my $static_prereqs = do { my $x = {
        'test' => {
                    'recommends' => {
                                      'CPAN::Meta' => '0',
-                                     'CPAN::Meta::Requirements' => '2.120900'
+                                     'CPAN::Meta::Requirements' => '2.120900',
+                                     'Moo' => '0',
+                                     'Moo::Role' => '0',
+                                     'Moose' => '0',
+                                     'Moose::Role' => '0',
+                                     'MooseX::Role::Parameterized' => '0',
+                                     'Mouse' => '0',
+                                     'Mouse::Role' => '0',
+                                     'Role::Tiny' => '1.003000'
                                    },
                    'requires' => {
+                                   'Class::MOP::Class' => '0',
                                    'Exporter' => '0',
                                    'ExtUtils::MakeMaker' => '0',
                                    'List::Util' => '0',
+                                   'Moose::Exporter' => '0',
                                    'Scalar::Util' => '0',
                                    'Test::Fatal' => '0',
                                    'Test::More' => '0',
                                    'Test::Requires' => '0',
                                    'Test::Tester' => '0',
                                    'lib' => '0',
+                                   'metaclass' => '0',
+                                   'overload' => '0',
                                    'parent' => '0',
                                    'version' => '0'
                                  }

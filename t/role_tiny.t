@@ -3,7 +3,7 @@ use warnings;
 
 use Test::Tester;
 use Test::More;
-use Test::Requires 'Role::Tiny';
+use Test::Requires { 'Role::Tiny' => '1.003000' };
 use Test::CleanNamespaces;
 
 use lib 't/lib';

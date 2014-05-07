@@ -1,5 +1,13 @@
 Revision history for Test-CleanNamespaces
 
+0.09      2014-05-07 05:06:58Z (TRIAL RELEASE)
+  - increased version for optional Role::Tiny prereq, to get the needed
+    is_role interface
+  - now ignoring 'import', 'unimport' subs; also handle users of
+    Moose::Exporter without erroring
+  - now ignoring overloaded methods
+  - now also properly handle classes using Class::MOP directly
+
 0.08      2014-03-09 01:08:34Z
   - fixed method identification in Moose and Mouse roles
 
@@ -13,6 +21,8 @@ Revision history for Test-CleanNamespaces
   - in failing tests, identify the source of the uncleaned sub(s)
   - remove the dependency on Class::MOP by inspecting the package stash
     directly
+ - line numbers in shipped code are now almost the same (within 3) as the
+   repository source, for easier debugging
 
 0.05      2013-09-25 03:34:13Z
   - re-release with fixed compile test

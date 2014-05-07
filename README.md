@@ -4,7 +4,7 @@ Test::CleanNamespaces - Check for uncleaned imports
 
 # VERSION
 
-version 0.08
+version 0.09
 
 # SYNOPSIS
 
@@ -47,13 +47,16 @@ what you want to override if you're subclassing this module.
 
     my $coderef = Test::CleanNamespaces->build_namespaces_clean;
 
-Returns a coderef that will be exported as `namespaces_clean`.
+Returns a coderef that will be exported as `namespaces_clean` (or the
+specified sub name, if provided).
 
 ## build\_all\_namespaces\_clean
 
     my $coderef = Test::CleanNamespaces->build_namespaces_clean;
 
-Returns a coderef that will be exported as `all_namespaces_clean`. It will use
+Returns a coderef that will be exported as `all_namespaces_clean`.
+(or the specified sub name, if provided).
+It will use
 the `find_modules` method to get the list of modules to check.
 
 ## find\_modules
@@ -68,6 +71,14 @@ Returns a list of modules in the current distribution. It'll search in
     my $builder = Test::CleanNamespaces->builder;
 
 Returns the `Test::Builder` used by the test functions.
+
+# SEE ALSO
+
+- [namespace::clean](https://metacpan.org/pod/namespace::clean)
+- [namespace::autoclean](https://metacpan.org/pod/namespace::autoclean)
+- [namespace::sweep](https://metacpan.org/pod/namespace::sweep)
+- [Sub::Exporter::ForMethods](https://metacpan.org/pod/Sub::Exporter::ForMethods)
+- [Test::API](https://metacpan.org/pod/Test::API)
 
 # AUTHOR
 
