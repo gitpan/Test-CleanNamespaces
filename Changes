@@ -1,5 +1,9 @@
 Revision history for Test-CleanNamespaces
 
+0.10      2014-05-12 04:30:17Z (TRIAL RELEASE)
+  - fix test diagnostics in the success case
+  - fix use of a new Scalar::Util export in tests
+
 0.09      2014-05-07 05:06:58Z (TRIAL RELEASE)
   - increased version for optional Role::Tiny prereq, to get the needed
     is_role interface

@@ -5,12 +5,11 @@ package Test::CleanNamespaces;
 BEGIN {
   $Test::CleanNamespaces::AUTHORITY = 'cpan:FLORA';
 }
-# git description: v0.08-15-g5fd3868
-$Test::CleanNamespaces::VERSION = '0.09'; # TRIAL
+# git description: v0.09-TRIAL-5-g0dacbd6
+$Test::CleanNamespaces::VERSION = '0.10'; # TRIAL
 # ABSTRACT: Check for uncleaned imports
 
 use Module::Runtime 'require_module';
-use Sub::Name 'subname';
 use Sub::Identify qw(sub_fullname stash_name);
 use Package::Stash;
 use Module::Runtime 'module_notional_filename';
@@ -29,12 +28,6 @@ use Sub::Exporter -setup => {
         default => [qw/namespaces_clean all_namespaces_clean/],
     },
 };
-
-BEGIN {
-    # temporary hack to make import into a real named method until
-    # Sub::Exporter does it for us.
-    *import = subname __PACKAGE__ . '::import', \&import;
-}
 
 #pod =head1 SYNOPSIS
 #pod
@@ -125,19 +118,16 @@ sub build_namespaces_clean {
 
             my %imports; @imports{@imports} = map { sub_fullname($symbols->{$_}) } @imports;
 
-            my @overloads = grep { $imports{$_} eq 'overload::nil' } keys %imports;
-            delete @imports{@overloads} if @overloads;
-
             # these subs are special-cased - they are often provided by other
             # modules, but cannot be wrapped with Sub::Name as the call stack
             # is important
             delete @imports{qw(import unimport)};
 
-            $class->builder->ok(!keys(%imports), "${ns} contains no imported functions");
+            my @overloads = grep { $imports{$_} eq 'overload::nil' } keys %imports;
+            delete @imports{@overloads} if @overloads;
 
-            $class->builder->diag(
-                $class->builder->explain('remaining imports: ' => \%imports)
-            ) if @imports;
+            $class->builder->ok(!keys(%imports), "${ns} contains no imported functions")
+                or $class->builder->diag($class->builder->explain('remaining imports: ' => \%imports));
         }
     };
 }
@@ -211,7 +201,7 @@ Test::CleanNamespaces - Check for uncleaned imports
 
 =head1 VERSION
 
-version 0.09
+version 0.10
 
 =head1 SYNOPSIS
 

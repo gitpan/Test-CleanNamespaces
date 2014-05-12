@@ -50,12 +50,13 @@ my $static_prereqs = do { my $x = {
                       },
        'develop' => {
                       'recommends' => {
-                                        'Dist::Zilla::PluginBundle::Author::ETHER' => '0.061',
+                                        'Dist::Zilla::PluginBundle::Author::ETHER' => '0.063',
                                         'Mouse' => '0'
                                       },
                       'requires' => {
                                       'Dist::Zilla' => '5.016',
                                       'Dist::Zilla::Plugin::ContributorsFromGit' => '0',
+                                      'Dist::Zilla::Plugin::DynamicPrereqs' => '0',
                                       'Dist::Zilla::Plugin::GitHub::Update' => '0',
                                       'Dist::Zilla::Plugin::GithubMeta' => '0',
                                       'Dist::Zilla::Plugin::MakeMaker' => '0',
@@ -97,7 +98,6 @@ my $static_prereqs = do { my $x = {
                                       'Package::Stash' => '0',
                                       'Sub::Exporter' => '0',
                                       'Sub::Identify' => '0',
-                                      'Sub::Name' => '0',
                                       'Test::Builder' => '0',
                                       'namespace::clean' => '0',
                                       'perl' => '5.006',

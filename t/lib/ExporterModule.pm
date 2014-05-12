@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package ExporterModule;
 
-use Scalar::Util 'unweaken';
+use Scalar::Util 'dualvar';
 use namespace::clean;
 
 use Exporter 'import';

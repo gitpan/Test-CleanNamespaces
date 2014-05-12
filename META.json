@@ -27,12 +27,13 @@
       },
       "develop" : {
          "recommends" : {
-            "Dist::Zilla::PluginBundle::Author::ETHER" : "0.061",
+            "Dist::Zilla::PluginBundle::Author::ETHER" : "0.063",
             "Mouse" : "0"
          },
          "requires" : {
             "Dist::Zilla" : "5.016",
             "Dist::Zilla::Plugin::ContributorsFromGit" : "0",
+            "Dist::Zilla::Plugin::DynamicPrereqs" : "0",
             "Dist::Zilla::Plugin::GitHub::Update" : "0",
             "Dist::Zilla::Plugin::GithubMeta" : "0",
             "Dist::Zilla::Plugin::MakeMaker" : "0",
@@ -74,7 +75,6 @@
             "Package::Stash" : "0",
             "Sub::Exporter" : "0",
             "Sub::Identify" : "0",
-            "Sub::Name" : "0",
             "Test::Builder" : "0",
             "namespace::clean" : "0",
             "perl" : "5.006",
@@ -117,7 +117,7 @@
    "provides" : {
       "Test::CleanNamespaces" : {
          "file" : "lib/Test/CleanNamespaces.pm",
-         "version" : "0.09"
+         "version" : "0.10"
       }
    },
    "release_status" : "testing",
@@ -135,7 +135,7 @@
       "x_IRC" : "irc://irc.perl.org/#perl-qa",
       "x_MailingList" : "http://lists.perl.org/list/perl-qa.html"
    },
-   "version" : "0.09",
+   "version" : "0.10",
    "x_Dist_Zilla" : {
       "perl" : {
          "version" : "5.019011"
@@ -493,7 +493,7 @@
          {
             "class" : "Dist::Zilla::Plugin::GithubMeta",
             "name" : "@Author::ETHER/GithubMeta",
-            "version" : "0.42"
+            "version" : "0.44"
          },
          {
             "class" : "Dist::Zilla::Plugin::AutoMetaResources",
@@ -737,7 +737,7 @@
                "Dist::Zilla::Plugin::Git::Tag" : {
                   "branch" : null,
                   "signed" : 0,
-                  "tag" : "v0.09-TRIAL",
+                  "tag" : "v0.10-TRIAL",
                   "tag_format" : "v%v%t",
                   "tag_message" : "v%v%t",
                   "time_zone" : "local"
@@ -792,9 +792,9 @@
             "version" : "5.016"
          },
          {
-            "class" : "inc::DynamicPrereqs",
-            "name" : "=inc::DynamicPrereqs",
-            "version" : null
+            "class" : "Dist::Zilla::Plugin::DynamicPrereqs",
+            "name" : "DynamicPrereqs",
+            "version" : "0.001"
          },
          {
             "class" : "Dist::Zilla::Plugin::Prereqs::Soften",

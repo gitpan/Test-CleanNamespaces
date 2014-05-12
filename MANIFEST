@@ -10,7 +10,6 @@ Makefile.PL
 README
 README.md
 dist.ini
-inc/DynamicPrereqs.pm
 lib/Test/CleanNamespaces.pm
 t/00-report-prereqs.t
 t/basic.t

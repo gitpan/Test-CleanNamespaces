@@ -28,7 +28,6 @@ my %WriteMakefileArgs = (
     "Package::Stash" => 0,
     "Sub::Exporter" => 0,
     "Sub::Identify" => 0,
-    "Sub::Name" => 0,
     "Test::Builder" => 0,
     "namespace::clean" => 0,
     "strict" => 0,
@@ -51,7 +50,7 @@ my %WriteMakefileArgs = (
     "parent" => 0,
     "version" => 0
   },
-  "VERSION" => "0.09",
+  "VERSION" => "0.10",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -72,7 +71,6 @@ my %FallbackPrereqs = (
   "Scalar::Util" => 0,
   "Sub::Exporter" => 0,
   "Sub::Identify" => 0,
-  "Sub::Name" => 0,
   "Test::Builder" => 0,
   "Test::Fatal" => 0,
   "Test::More" => 0,
@@ -88,7 +86,8 @@ my %FallbackPrereqs = (
   "warnings" => 0
 );
 
-$WriteMakefileArgs{PREREQ_PM}{'Role::Tiny'} = $FallbackPrereqs{'Role::Tiny'} = '1.003000' if eval { require Role::Tiny; 1 };
+$WriteMakefileArgs{PREREQ_PM}{'Role::Tiny'} = $FallbackPrereqs{'Role::Tiny'} = '1.003000'
+if eval { require Role::Tiny; 1 };
 
 
 
