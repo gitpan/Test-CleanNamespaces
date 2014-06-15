@@ -4,7 +4,7 @@ Test::CleanNamespaces - Check for uncleaned imports
 
 # VERSION
 
-version 0.10
+version 0.11
 
 # SYNOPSIS
 
@@ -36,7 +36,7 @@ be loaded it will be skipped.
 
     all_namespaces_clean;
 
-Runs `namespaces_clean` for all modules in your distribution.
+Runs ["namespaces\_clean"](#namespaces_clean) for all modules in your distribution.
 
 # METHODS
 
@@ -52,7 +52,7 @@ specified sub name, if provided).
 
 ## build\_all\_namespaces\_clean
 
-    my $coderef = Test::CleanNamespaces->build_namespaces_clean;
+    my $coderef = Test::CleanNamespaces->build_all_namespaces_clean;
 
 Returns a coderef that will be exported as `all_namespaces_clean`.
 (or the specified sub name, if provided).
@@ -72,6 +72,14 @@ Returns a list of modules in the current distribution. It'll search in
 
 Returns the `Test::Builder` used by the test functions.
 
+# KNOWN ISSUES
+
+Uncleaned imports from [Mouse](https://metacpan.org/pod/Mouse) classes are incompletely detected, due to its
+lack of ability to return the correct method list -- it assumes that all subs
+are meant to be callable as methods unless they originated from (were imported
+by) one of: [Mouse](https://metacpan.org/pod/Mouse), [Mouse::Role](https://metacpan.org/pod/Mouse::Role), [Mouse::Util](https://metacpan.org/pod/Mouse::Util),
+[Mouse::Util::TypeConstraints](https://metacpan.org/pod/Mouse::Util::TypeConstraints), [Carp](https://metacpan.org/pod/Carp), [Scalar::Util](https://metacpan.org/pod/Scalar::Util), or [List::Util](https://metacpan.org/pod/List::Util).
+
 # SEE ALSO
 
 - [namespace::clean](https://metacpan.org/pod/namespace::clean)
@@ -79,6 +87,9 @@ Returns the `Test::Builder` used by the test functions.
 - [namespace::sweep](https://metacpan.org/pod/namespace::sweep)
 - [Sub::Exporter::ForMethods](https://metacpan.org/pod/Sub::Exporter::ForMethods)
 - [Test::API](https://metacpan.org/pod/Test::API)
+- [Sub::Name](https://metacpan.org/pod/Sub::Name)
+- [Sub::Install](https://metacpan.org/pod/Sub::Install)
+- [MooseX::MarkAsMethods](https://metacpan.org/pod/MooseX::MarkAsMethods)
 
 # AUTHOR
 

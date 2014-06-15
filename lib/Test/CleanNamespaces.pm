@@ -5,14 +5,14 @@ package Test::CleanNamespaces;
 BEGIN {
   $Test::CleanNamespaces::AUTHORITY = 'cpan:FLORA';
 }
-# git description: v0.09-TRIAL-5-g0dacbd6
-$Test::CleanNamespaces::VERSION = '0.10'; # TRIAL
+# git description: v0.10-TRIAL-17-gfceabfb
+$Test::CleanNamespaces::VERSION = '0.11';
 # ABSTRACT: Check for uncleaned imports
+# KEYWORDS: testing namespaces clean dirty imports exports subroutines methods
 
-use Module::Runtime 'require_module';
+use Module::Runtime qw(require_module module_notional_filename);
 use Sub::Identify qw(sub_fullname stash_name);
 use Package::Stash;
-use Module::Runtime 'module_notional_filename';
 use Test::Builder;
 use File::Find::Rule;
 use File::Find::Rule::Perl;
@@ -59,7 +59,7 @@ use Sub::Exporter -setup => {
 #pod
 #pod     all_namespaces_clean;
 #pod
-#pod Runs C<namespaces_clean> for all modules in your distribution.
+#pod Runs L</namespaces_clean> for all modules in your distribution.
 #pod
 #pod =head1 METHODS
 #pod
@@ -81,60 +81,28 @@ sub build_namespaces_clean {
         my (@namespaces) = @_;
         local $@;
 
+        my $result = 1;
         for my $ns (@namespaces) {
             unless (eval { require_module($ns); 1 }) {
                 $class->builder->skip("failed to load ${ns}: $@");
                 next;
             }
 
-            my $symbols = Package::Stash->new($ns)->get_all_symbols('CODE');
-            my @imports;
+            my $imports = _remaining_imports($ns);
 
-            my $meta;
-            if ($INC{ module_notional_filename('Class::MOP') }
-                and $meta = Class::MOP::class_of($ns)
-                and $meta->can('get_method_list'))
-            {
-                my %subs = %$symbols;
-                delete @subs{ $meta->get_method_list };
-                @imports = keys %subs;
-            }
-            elsif ($INC{ module_notional_filename('Mouse::Util') }
-                and $meta = Mouse::Util::class_of($ns))
-            {
-                my %subs = %$symbols;
-                delete @subs{ $meta->get_method_list };
-                @imports = keys %subs;
-            }
-            else
-            {
-                @imports = grep {
-                    my $stash = stash_name($symbols->{$_});
-                    $stash ne $ns
-                        and $stash ne 'Role::Tiny'
-                        and not eval { require Role::Tiny; Role::Tiny->is_role($stash) }
-                } keys %$symbols;
-            }
+            my $ok = $class->builder->ok(!keys(%$imports), "${ns} contains no imported functions");
+            $ok or $class->builder->diag($class->builder->explain('remaining imports: ' => $imports));
 
-            my %imports; @imports{@imports} = map { sub_fullname($symbols->{$_}) } @imports;
-
-            # these subs are special-cased - they are often provided by other
-            # modules, but cannot be wrapped with Sub::Name as the call stack
-            # is important
-            delete @imports{qw(import unimport)};
-
-            my @overloads = grep { $imports{$_} eq 'overload::nil' } keys %imports;
-            delete @imports{@overloads} if @overloads;
-
-            $class->builder->ok(!keys(%imports), "${ns} contains no imported functions")
-                or $class->builder->diag($class->builder->explain('remaining imports: ' => \%imports));
+            $result &&= $ok;
         }
+
+        return $result;
     };
 }
 
 #pod =head2 build_all_namespaces_clean
 #pod
-#pod     my $coderef = Test::CleanNamespaces->build_namespaces_clean;
+#pod     my $coderef = Test::CleanNamespaces->build_all_namespaces_clean;
 #pod
 #pod Returns a coderef that will be exported as C<all_namespaces_clean>.
 #pod (or the specified sub name, if provided).
@@ -145,12 +113,61 @@ sub build_namespaces_clean {
 
 sub build_all_namespaces_clean {
     my ($class, $name) = @_;
-    my $namespaces_clean = $class->build_namespaces_clean($name);
+    my $namespaces_clean = $class->build_namespaces_clean();
     return sub {
         my @modules = $class->find_modules(@_);
         $class->builder->plan(tests => scalar @modules);
         $namespaces_clean->(@modules);
     };
+}
+
+# given a package name, returns a hashref of all remaining imports
+sub _remaining_imports {
+    my $ns = shift;
+
+    my $symbols = Package::Stash->new($ns)->get_all_symbols('CODE');
+    my @imports;
+
+    my $meta;
+    if ($INC{ module_notional_filename('Class::MOP') }
+        and $meta = Class::MOP::class_of($ns)
+        and $meta->can('get_method_list'))
+    {
+        my %subs = %$symbols;
+        delete @subs{ $meta->get_method_list };
+        @imports = keys %subs;
+    }
+    elsif ($INC{ module_notional_filename('Mouse::Util') }
+        and $meta = Mouse::Util::class_of($ns))
+    {
+        warn 'Mouse class detected - chance of false negatives is high!';
+
+        my %subs = %$symbols;
+        # ugh, this returns far more than the true list of methods
+        delete @subs{ $meta->get_method_list };
+        @imports = keys %subs;
+    }
+    else
+    {
+        @imports = grep {
+            my $stash = stash_name($symbols->{$_});
+            $stash ne $ns
+                and $stash ne 'Role::Tiny'
+                and not eval { require Role::Tiny; Role::Tiny->is_role($stash) }
+        } keys %$symbols;
+    }
+
+    my %imports; @imports{@imports} = map { sub_fullname($symbols->{$_}) } @imports;
+
+    # these subs are special-cased - they are often provided by other
+    # modules, but cannot be wrapped with Sub::Name as the call stack
+    # is important
+    delete @imports{qw(import unimport)};
+
+    my @overloads = grep { $imports{$_} eq 'overload::nil' } keys %imports;
+    delete @imports{@overloads} if @overloads;
+
+    return \%imports;
 }
 
 #pod =head2 find_modules
@@ -201,7 +218,7 @@ Test::CleanNamespaces - Check for uncleaned imports
 
 =head1 VERSION
 
-version 0.10
+version 0.11
 
 =head1 SYNOPSIS
 
@@ -233,7 +250,7 @@ be loaded it will be skipped.
 
     all_namespaces_clean;
 
-Runs C<namespaces_clean> for all modules in your distribution.
+Runs L</namespaces_clean> for all modules in your distribution.
 
 =head1 METHODS
 
@@ -249,7 +266,7 @@ specified sub name, if provided).
 
 =head2 build_all_namespaces_clean
 
-    my $coderef = Test::CleanNamespaces->build_namespaces_clean;
+    my $coderef = Test::CleanNamespaces->build_all_namespaces_clean;
 
 Returns a coderef that will be exported as C<all_namespaces_clean>.
 (or the specified sub name, if provided).
@@ -268,6 +285,14 @@ C<blib/>, if it exists. C<lib/> will be searched otherwise.
     my $builder = Test::CleanNamespaces->builder;
 
 Returns the C<Test::Builder> used by the test functions.
+
+=head1 KNOWN ISSUES
+
+Uncleaned imports from L<Mouse> classes are incompletely detected, due to its
+lack of ability to return the correct method list -- it assumes that all subs
+are meant to be callable as methods unless they originated from (were imported
+by) one of: L<Mouse>, L<Mouse::Role>, L<Mouse::Util>,
+L<Mouse::Util::TypeConstraints>, L<Carp>, L<Scalar::Util>, or L<List::Util>.
 
 =head1 SEE ALSO
 
@@ -292,6 +317,18 @@ L<Sub::Exporter::ForMethods>
 =item *
 
 L<Test::API>
+
+=item *
+
+L<Sub::Name>
+
+=item *
+
+L<Sub::Install>
+
+=item *
+
+L<MooseX::MarkAsMethods>
 
 =back
 

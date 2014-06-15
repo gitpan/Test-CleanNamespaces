@@ -3,7 +3,12 @@ use warnings;
 package MooyDirty;
 
 use Moo;
-use Scalar::Util 'refaddr';
+use File::Spec::Functions 'catdir';
 
 sub stuff {}
+
+use constant CAN => [ qw(stuff catdir meta has with) ];
+use constant CANT => [ ];
+use constant DIRTY => [ qw(catdir has with) ];
+
 1;

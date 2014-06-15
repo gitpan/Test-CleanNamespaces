@@ -1,5 +1,11 @@
 Revision history for Test-CleanNamespaces
 
+0.11      2014-06-15 04:02:16Z
+  - the return value of namespaces_clean() and all_namespaces_clean() is now
+    consistent with the result of the test(s).
+  - fixed tests to expose an issue with Mouse classes, and documented this
+    (now) known issue
+
 0.10      2014-05-12 04:30:17Z (TRIAL RELEASE)
   - fix test diagnostics in the success case
   - fix use of a new Scalar::Util export in tests

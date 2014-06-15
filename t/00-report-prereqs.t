@@ -50,11 +50,11 @@ my $static_prereqs = do { my $x = {
                       },
        'develop' => {
                       'recommends' => {
-                                        'Dist::Zilla::PluginBundle::Author::ETHER' => '0.063',
+                                        'Dist::Zilla::PluginBundle::Author::ETHER' => '0.065',
                                         'Mouse' => '0'
                                       },
                       'requires' => {
-                                      'Dist::Zilla' => '5.016',
+                                      'Dist::Zilla' => '5',
                                       'Dist::Zilla::Plugin::ContributorsFromGit' => '0',
                                       'Dist::Zilla::Plugin::DynamicPrereqs' => '0',
                                       'Dist::Zilla::Plugin::GitHub::Update' => '0',
@@ -65,6 +65,7 @@ my $static_prereqs = do { my $x = {
                                       'Dist::Zilla::Plugin::Prereqs::Soften' => '0',
                                       'Dist::Zilla::Plugin::Test::CleanNamespaces' => '0',
                                       'Dist::Zilla::PluginBundle::Author::ETHER' => '0.025',
+                                      'Exporter' => '5.57',
                                       'File::Spec' => '0',
                                       'IO::Handle' => '0',
                                       'IPC::Open3' => '0',
@@ -125,10 +126,11 @@ my $static_prereqs = do { my $x = {
                                    'List::Util' => '0',
                                    'Moose::Exporter' => '0',
                                    'Scalar::Util' => '0',
-                                   'Test::Fatal' => '0',
+                                   'Test::Deep' => '0',
                                    'Test::More' => '0',
                                    'Test::Requires' => '0',
                                    'Test::Tester' => '0',
+                                   'constant' => '0',
                                    'lib' => '0',
                                    'metaclass' => '0',
                                    'overload' => '0',

@@ -1,35 +1,30 @@
 use strict;
-use warnings;
-use Test::Tester;
-use Test::More;
-use Test::Fatal;
+use warnings FATAL => 'all';
 
+use Test::More;
+use Test::Deep;
+use Module::Runtime 'require_module';
 use Test::CleanNamespaces;
+
 use lib 't/lib';
 
 {
     my $package = 'Overloader';
 
-    my (undef, @results) = run_tests(sub { namespaces_clean($package) });
-    cmp_results(
-        \@results,
-        [ {
-            ok => 1,
-            name => $package . ' contains no imported functions',
-        } ],
+    require_module($package);
+    cmp_deeply(
+        Test::CleanNamespaces::_remaining_imports($package),
+        {},
         $package . ' has a clean namespace',
-    );
-
-    like(
-        exception { $package->stuff },
-        qr/Can't locate object method "stuff" via package "$package"/,
-        'cannot call stuff as a class method on ' . $package . ' - it was cleaned',
     );
 
     my $obj = $package->new(val => 42);
 
     is("$obj", '42', 'string overload works');
     is($obj + 1, 43, 'numeric overload works');
+
+    ok($package->can($_), "can do $package->$_") foreach @{ $package->CAN };
+    ok(!$package->can($_), "cannot do $package->$_") foreach @{ $package->CANT };
 }
 
 done_testing;

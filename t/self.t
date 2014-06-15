@@ -1,5 +1,5 @@
 use strict;
-use warnings;
-use Test::CleanNamespaces;
+use warnings FATAL => 'all';
 
+use Test::CleanNamespaces;
 all_namespaces_clean;

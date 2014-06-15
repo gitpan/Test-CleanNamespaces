@@ -1,15 +1,15 @@
 use strict;
-use warnings;
+use warnings FATAL => 'all';
 use Test::Tester;
 use Test::More;
-use Test::Fatal;
 
 use Test::CleanNamespaces;
 
 use lib 't/lib';
 
 {
-    my (undef, @results) = run_tests(sub { namespaces_clean('Test::CleanNamespaces') });
+    my $return_value;
+    my (undef, @results) = run_tests(sub { $return_value = namespaces_clean('Test::CleanNamespaces') });
     cmp_results(
         \@results,
         [ {
@@ -18,28 +18,40 @@ use lib 't/lib';
         } ],
         'namespaces_clean success',
     );
+
+    diag 'got result: ', explain(\@results) if not Test::Builder->new->is_passing;
+
+
+    ok($return_value, 'returned true');
 }
 
 {
-    my (undef, @results) = check_test(sub { namespaces_clean('DoesNotCompile') }, {
+    my $return_value;
+    my (undef, @results) = check_test(sub { $return_value = namespaces_clean('DoesNotCompile') }, {
         ok => 1,
         type => 'skip',
     }, 'namespace_clean compilation fail');
 
     like($results[0]{reason}, qr/failed to load/, 'useful diagnostics on compilation fail')
         or diag 'got result: ', explain(\@results);
+
+    diag 'got result: ', explain(\@results) if not Test::Builder->new->is_passing;
+
+    # meh, we could return true or false here...
+    ok($return_value, 'returned true');
 }
 
 foreach my $package (qw(Dirty SubDirty))
 {
-    my (undef, @results) = run_tests(sub { namespaces_clean($package) });
+    my $return_value;
+    my (undef, @results) = run_tests(sub { $return_value = namespaces_clean($package) });
     cmp_results(
         \@results,
         [ {
             ok => 0,
             name => $package . ' contains no imported functions',
         } ],
-        $package . ' has an unclean namespace',
+        $package . ' has an unclean namespace - found all uncleaned imports',
     );
 
     like($results[0]{diag}, qr/remaining imports/, $package . ': diagnostic mentions "remaining imports"')
@@ -48,19 +60,18 @@ foreach my $package (qw(Dirty SubDirty))
         $package . ': diagnostic lists the remaining imports')
         or diag 'got result: ', explain(\@results);
 
-    can_ok($package, 'method');
-    is($package->callstuff, 'called stuff', $package . ' called stuff via other sub');
+    diag 'got result: ', explain(\@results) if not Test::Builder->new->is_passing;
 
-    is(
-        exception { $package->stuff },
-        undef,
-        'can call stuff as a class method on ' . $package . ' - it was not cleaned',
-    );
+    ok(!$return_value, 'returned false');
+
+    ok($package->can($_), "can do $package->$_") foreach @{ $package->CAN };
+    ok(!$package->can($_), "cannot do $package->$_") foreach @{ $package->CANT };
 }
 
-foreach my $package (qw(Clean SubClean))
+foreach my $package (qw(Clean SubClean ExporterModule SubExporterModule))
 {
-    my (undef, @results) = run_tests(sub { namespaces_clean($package) });
+    my $return_value;
+    my (undef, @results) = run_tests(sub { $return_value = namespaces_clean($package) });
     cmp_results(
         \@results,
         [ {
@@ -69,17 +80,16 @@ foreach my $package (qw(Clean SubClean))
         } ],
         $package . ' has a clean namespace',
     );
+    diag 'got result: ', explain(\@results) if not Test::Builder->new->is_passing;
 
-    can_ok($package, 'method');
-    is($package->callstuff, 'called stuff', $package . ' called stuff via other sub');
+    ok($return_value, 'returned true');
 
-    like(
-        exception { $package->stuff },
-        qr/Can't locate object method "stuff" via package "$package"/,
-        'cannot call stuff as a class method on ' . $package . ' - it was cleaned',
-    );
+    ok($package->can($_), "can do $package->$_") foreach @{ $package->CAN };
+    ok(!$package->can($_), "cannot do $package->$_") foreach @{ $package->CANT };
 }
 
 ok(!exists($INC{'Class/MOP.pm'}), 'Class::MOP has not been loaded');
+ok(!exists($INC{'Moose.pm'}), 'Moose has not been loaded');
+ok(!exists($INC{'Mouse.pm'}), 'Mouse has not been loaded');
 
 done_testing;
