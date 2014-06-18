@@ -50,8 +50,7 @@ my $static_prereqs = do { my $x = {
                       },
        'develop' => {
                       'recommends' => {
-                                        'Dist::Zilla::PluginBundle::Author::ETHER' => '0.065',
-                                        'Mouse' => '0'
+                                        'Dist::Zilla::PluginBundle::Author::ETHER' => '0.065'
                                       },
                       'requires' => {
                                       'Dist::Zilla' => '5',
@@ -72,6 +71,7 @@ my $static_prereqs = do { my $x = {
                                       'Moo' => '0',
                                       'Moose' => '0',
                                       'MooseX::Role::Parameterized' => '0',
+                                      'Mouse' => '0',
                                       'Pod::Coverage::TrustPod' => '0',
                                       'Pod::Weaver' => '4',
                                       'Pod::Weaver::Section::Contributors' => '0',
@@ -83,7 +83,8 @@ my $static_prereqs = do { my $x = {
                                       'Test::More' => '0.94',
                                       'Test::NoTabs' => '0',
                                       'Test::Pod' => '1.41',
-                                      'Test::Pod::Coverage' => '1.08'
+                                      'Test::Pod::Coverage' => '1.08',
+                                      'Test::Spelling' => '0.12'
                                     }
                     },
        'runtime' => {

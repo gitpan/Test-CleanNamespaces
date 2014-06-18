@@ -2,11 +2,7 @@ use strict;
 use warnings FATAL => 'all';
 
 use Test::More;
-
-BEGIN {
-    local $ENV{RELEASE_TESTING};    # so Test::Requires does not die if Mouse not installed
-    use Test::Requires { 'Mouse' => '()' };
-}
+use Test::Requires { 'Mouse' => '()' };
 use Test::Deep;
 use Module::Runtime 'require_module';
 use Test::CleanNamespaces;

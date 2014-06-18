@@ -21,7 +21,6 @@ use lib 't/lib';
 
     diag 'got result: ', explain(\@results) if not Test::Builder->new->is_passing;
 
-
     ok($return_value, 'returned true');
 }
 

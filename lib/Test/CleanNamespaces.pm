@@ -5,8 +5,8 @@ package Test::CleanNamespaces;
 BEGIN {
   $Test::CleanNamespaces::AUTHORITY = 'cpan:FLORA';
 }
-# git description: v0.10-TRIAL-17-gfceabfb
-$Test::CleanNamespaces::VERSION = '0.11';
+# git description: v0.11-3-g735ab4a
+$Test::CleanNamespaces::VERSION = '0.12';
 # ABSTRACT: Check for uncleaned imports
 # KEYWORDS: testing namespaces clean dirty imports exports subroutines methods
 
@@ -167,6 +167,12 @@ sub _remaining_imports {
     my @overloads = grep { $imports{$_} eq 'overload::nil' } keys %imports;
     delete @imports{@overloads} if @overloads;
 
+    if ($] < 5.010)
+    {
+        my @constants = grep { $imports{$_} eq 'constant::__ANON__' } keys %imports;
+        delete @imports{@constants} if @constants;
+    }
+
     return \%imports;
 }
 
@@ -218,7 +224,7 @@ Test::CleanNamespaces - Check for uncleaned imports
 
 =head1 VERSION
 
-version 0.11
+version 0.12
 
 =head1 SYNOPSIS
 

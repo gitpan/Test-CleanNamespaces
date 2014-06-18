@@ -44,7 +44,7 @@ no_index:
 provides:
   Test::CleanNamespaces:
     file: lib/Test/CleanNamespaces.pm
-    version: '0.11'
+    version: '0.12'
 recommends:
   Package::Stash::XS: '0'
   Role::Tiny: '0'
@@ -67,7 +67,7 @@ resources:
   bugtracker: https://rt.cpan.org/Public/Dist/Display.html?Name=Test-CleanNamespaces
   homepage: https://github.com/karenetheridge/Test-CleanNamespaces
   repository: https://github.com/karenetheridge/Test-CleanNamespaces.git
-version: '0.11'
+version: '0.12'
 x_Dist_Zilla:
   perl:
     version: '5.020000'
@@ -220,7 +220,7 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::Test::PodSpelling
       name: '@Author::ETHER/Test::PodSpelling'
-      version: '2.006007'
+      version: '2.006008'
     -
       class: Dist::Zilla::Plugin::Test::Pod::No404s
       name: '@Author::ETHER/Test::Pod::No404s'
@@ -532,7 +532,7 @@ x_Dist_Zilla:
         Dist::Zilla::Plugin::Git::Tag:
           branch: ~
           signed: 0
-          tag: v0.11
+          tag: v0.12
           tag_format: v%v%t
           tag_message: v%v%t
           time_zone: local
@@ -574,7 +574,7 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::DynamicPrereqs
       name: DynamicPrereqs
-      version: '0.004'
+      version: '0.005'
     -
       class: Dist::Zilla::Plugin::Prereqs::Soften
       config:
@@ -616,14 +616,6 @@ x_Dist_Zilla:
           phase: develop
           type: requires
       name: DevelopRequires
-      version: '5.019'
-    -
-      class: Dist::Zilla::Plugin::Prereqs
-      config:
-        Dist::Zilla::Plugin::Prereqs:
-          phase: develop
-          type: recommends
-      name: DevelopRecommends
       version: '5.019'
     -
       class: Dist::Zilla::Plugin::MetaResources

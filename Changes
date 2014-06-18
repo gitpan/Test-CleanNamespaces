@@ -1,5 +1,9 @@
 Revision history for Test-CleanNamespaces
 
+0.12      2014-06-18 01:58:18Z
+  - also special case constant subs, which show up in the symbol table before
+  perl 5.010 as 'constant::__ANON__'
+
 0.11      2014-06-15 04:02:16Z
   - the return value of namespaces_clean() and all_namespaces_clean() is now
     consistent with the result of the test(s).
