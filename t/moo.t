@@ -2,7 +2,8 @@ use strict;
 use warnings FATAL => 'all';
 
 use Test::More;
-use Test::Requires { 'Moo' => '()' };
+use if $ENV{AUTHOR_TESTING}, 'Test::Warnings';
+use Test::Requires { 'Moo' => '1.000007' };
 use Test::Deep;
 use Module::Runtime 'require_module';
 use Test::CleanNamespaces;

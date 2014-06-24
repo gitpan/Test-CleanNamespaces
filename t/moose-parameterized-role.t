@@ -6,6 +6,7 @@ use Test::More;
 # blech! but Test::Requires does a stringy eval, so this works...
 use Test::Requires { 'Moose' => '()', 'MooseX::Role::Parameterized' => '()' };
 
+use if $ENV{AUTHOR_TESTING}, 'Test::Warnings';
 use Test::Deep;
 use Module::Runtime 'require_module';
 use Test::CleanNamespaces;

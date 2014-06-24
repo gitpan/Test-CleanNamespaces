@@ -2,6 +2,7 @@ use strict;
 use warnings FATAL => 'all';
 
 use Test::More;
+use Test::Warnings 0.009 ':no_end_test', ':all';
 use Test::Requires { 'Mouse' => '()' };
 use Test::Deep;
 use Module::Runtime 'require_module';
@@ -14,8 +15,8 @@ foreach my $package (qw(MouseyDirty))
     require_module($package);
 
     local $TODO = 'Mouse::Meta::Module::get_method_list does not track method origin';
-    my $imports = Test::CleanNamespaces::_remaining_imports($package);
-
+    my $imports;
+    warnings { $imports = Test::CleanNamespaces::_remaining_imports($package) };
     cmp_deeply(
         $imports,
         superhashof({
@@ -43,8 +44,10 @@ foreach my $package (qw(MouseyDirty))
 foreach my $package (qw(MouseyClean MouseyRole MouseyComposer))
 {
     require_module($package);
+    my $imports;
+    warnings { $imports = Test::CleanNamespaces::_remaining_imports($package) };
     cmp_deeply(
-        Test::CleanNamespaces::_remaining_imports($package),
+        $imports,
         {},
         $package . ' has a clean namespace',
     );
@@ -56,4 +59,5 @@ foreach my $package (qw(MouseyClean MouseyRole MouseyComposer))
 ok(!exists($INC{'Class/MOP.pm'}), 'Class::MOP has not been loaded');
 ok(!exists($INC{'Moose.pm'}), 'Moose has not been loaded');
 
+had_no_warnings if $ENV{AUTHOR_TESTING};
 done_testing;

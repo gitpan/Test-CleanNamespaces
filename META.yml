@@ -13,7 +13,9 @@ build_requires:
   Test::More: '0'
   Test::Requires: '0'
   Test::Tester: '0'
+  Test::Warnings: '0.009'
   constant: '0'
+  if: '0'
   lib: '0'
   metaclass: '0'
   overload: '0'
@@ -44,7 +46,7 @@ no_index:
 provides:
   Test::CleanNamespaces:
     file: lib/Test/CleanNamespaces.pm
-    version: '0.12'
+    version: '0.13'
 recommends:
   Package::Stash::XS: '0'
   Role::Tiny: '0'
@@ -67,10 +69,10 @@ resources:
   bugtracker: https://rt.cpan.org/Public/Dist/Display.html?Name=Test-CleanNamespaces
   homepage: https://github.com/karenetheridge/Test-CleanNamespaces
   repository: https://github.com/karenetheridge/Test-CleanNamespaces.git
-version: '0.12'
+version: '0.13'
 x_Dist_Zilla:
   perl:
-    version: '5.020000'
+    version: '5.021001'
   plugins:
     -
       class: Dist::Zilla::Plugin::Git::NextVersion
@@ -86,7 +88,7 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::EnsurePrereqsInstalled
       name: '@Author::ETHER/EnsurePrereqsInstalled'
-      version: '0.003'
+      version: '0.004'
     -
       class: Dist::Zilla::Plugin::PromptIfStale
       config:
@@ -232,7 +234,7 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::MojibakeTests
       name: '@Author::ETHER/MojibakeTests'
-      version: '0.6'
+      version: '0.7'
     -
       class: Dist::Zilla::Plugin::Test::ReportPrereqs
       name: '@Author::ETHER/Test::ReportPrereqs'
@@ -532,7 +534,7 @@ x_Dist_Zilla:
         Dist::Zilla::Plugin::Git::Tag:
           branch: ~
           signed: 0
-          tag: v0.12
+          tag: v0.13
           tag_format: v%v%t
           tag_message: v%v%t
           time_zone: local

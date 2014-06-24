@@ -43,14 +43,16 @@ my %WriteMakefileArgs = (
     "Test::More" => 0,
     "Test::Requires" => 0,
     "Test::Tester" => 0,
+    "Test::Warnings" => "0.009",
     "constant" => 0,
+    "if" => 0,
     "lib" => 0,
     "metaclass" => 0,
     "overload" => 0,
     "parent" => 0,
     "version" => 0
   },
-  "VERSION" => "0.12",
+  "VERSION" => "0.13",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -76,7 +78,9 @@ my %FallbackPrereqs = (
   "Test::More" => 0,
   "Test::Requires" => 0,
   "Test::Tester" => 0,
+  "Test::Warnings" => "0.009",
   "constant" => 0,
+  "if" => 0,
   "lib" => 0,
   "metaclass" => 0,
   "namespace::clean" => 0,

@@ -68,7 +68,7 @@ my $static_prereqs = do { my $x = {
                                       'File::Spec' => '0',
                                       'IO::Handle' => '0',
                                       'IPC::Open3' => '0',
-                                      'Moo' => '0',
+                                      'Moo' => '1.000007',
                                       'Moose' => '0',
                                       'MooseX::Role::Parameterized' => '0',
                                       'Mouse' => '0',
@@ -84,7 +84,8 @@ my $static_prereqs = do { my $x = {
                                       'Test::NoTabs' => '0',
                                       'Test::Pod' => '1.41',
                                       'Test::Pod::Coverage' => '1.08',
-                                      'Test::Spelling' => '0.12'
+                                      'Test::Spelling' => '0.12',
+                                      'Test::Warnings' => '0'
                                     }
                     },
        'runtime' => {
@@ -131,7 +132,9 @@ my $static_prereqs = do { my $x = {
                                    'Test::More' => '0',
                                    'Test::Requires' => '0',
                                    'Test::Tester' => '0',
+                                   'Test::Warnings' => '0.009',
                                    'constant' => '0',
+                                   'if' => '0',
                                    'lib' => '0',
                                    'metaclass' => '0',
                                    'overload' => '0',

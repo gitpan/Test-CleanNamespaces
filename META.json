@@ -55,7 +55,7 @@
             "File::Spec" : "0",
             "IO::Handle" : "0",
             "IPC::Open3" : "0",
-            "Moo" : "0",
+            "Moo" : "1.000007",
             "Moose" : "0",
             "MooseX::Role::Parameterized" : "0",
             "Mouse" : "0",
@@ -71,7 +71,8 @@
             "Test::NoTabs" : "0",
             "Test::Pod" : "1.41",
             "Test::Pod::Coverage" : "1.08",
-            "Test::Spelling" : "0.12"
+            "Test::Spelling" : "0.12",
+            "Test::Warnings" : "0"
          }
       },
       "runtime" : {
@@ -118,7 +119,9 @@
             "Test::More" : "0",
             "Test::Requires" : "0",
             "Test::Tester" : "0",
+            "Test::Warnings" : "0.009",
             "constant" : "0",
+            "if" : "0",
             "lib" : "0",
             "metaclass" : "0",
             "overload" : "0",
@@ -130,7 +133,7 @@
    "provides" : {
       "Test::CleanNamespaces" : {
          "file" : "lib/Test/CleanNamespaces.pm",
-         "version" : "0.12"
+         "version" : "0.13"
       }
    },
    "release_status" : "stable",
@@ -148,10 +151,10 @@
       "x_IRC" : "irc://irc.perl.org/#perl-qa",
       "x_MailingList" : "http://lists.perl.org/list/perl-qa.html"
    },
-   "version" : "0.12",
+   "version" : "0.13",
    "x_Dist_Zilla" : {
       "perl" : {
-         "version" : "5.020000"
+         "version" : "5.021001"
       },
       "plugins" : [
          {
@@ -172,7 +175,7 @@
          {
             "class" : "Dist::Zilla::Plugin::EnsurePrereqsInstalled",
             "name" : "@Author::ETHER/EnsurePrereqsInstalled",
-            "version" : "0.003"
+            "version" : "0.004"
          },
          {
             "class" : "Dist::Zilla::Plugin::PromptIfStale",
@@ -361,7 +364,7 @@
          {
             "class" : "Dist::Zilla::Plugin::MojibakeTests",
             "name" : "@Author::ETHER/MojibakeTests",
-            "version" : "0.6"
+            "version" : "0.7"
          },
          {
             "class" : "Dist::Zilla::Plugin::Test::ReportPrereqs",
@@ -755,7 +758,7 @@
                "Dist::Zilla::Plugin::Git::Tag" : {
                   "branch" : null,
                   "signed" : 0,
-                  "tag" : "v0.12",
+                  "tag" : "v0.13",
                   "tag_format" : "v%v%t",
                   "tag_message" : "v%v%t",
                   "time_zone" : "local"

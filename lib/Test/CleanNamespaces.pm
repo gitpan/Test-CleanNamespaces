@@ -5,8 +5,8 @@ package Test::CleanNamespaces;
 BEGIN {
   $Test::CleanNamespaces::AUTHORITY = 'cpan:FLORA';
 }
-# git description: v0.11-3-g735ab4a
-$Test::CleanNamespaces::VERSION = '0.12';
+# git description: v0.12-2-gd0f59c8
+$Test::CleanNamespaces::VERSION = '0.13';
 # ABSTRACT: Check for uncleaned imports
 # KEYWORDS: testing namespaces clean dirty imports exports subroutines methods
 
@@ -224,7 +224,7 @@ Test::CleanNamespaces - Check for uncleaned imports
 
 =head1 VERSION
 
-version 0.12
+version 0.13
 
 =head1 SYNOPSIS
 

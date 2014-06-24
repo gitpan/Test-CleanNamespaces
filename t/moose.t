@@ -3,6 +3,7 @@ use warnings FATAL => 'all';
 
 use Test::More;
 use Test::Requires { 'Moose' => '()' };
+use if $ENV{AUTHOR_TESTING}, 'Test::Warnings';
 use Test::Deep;
 use Module::Runtime 'require_module';
 use Test::CleanNamespaces;

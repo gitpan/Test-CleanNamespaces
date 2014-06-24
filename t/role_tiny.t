@@ -3,6 +3,7 @@ use warnings FATAL => 'all';
 
 use Test::More;
 use Test::Requires { 'Role::Tiny' => '1.003000' };
+use if $ENV{AUTHOR_TESTING}, 'Test::Warnings';
 use Test::Deep;
 use Module::Runtime 'require_module';
 use Test::CleanNamespaces;

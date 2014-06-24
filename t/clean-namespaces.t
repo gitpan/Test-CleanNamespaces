@@ -3,6 +3,7 @@ use warnings FATAL => 'all';
 
 use Test::More;
 use Test::CleanNamespaces;
+use Test::Warnings;     # yes, even for non-authors
 
 my $result;
 
