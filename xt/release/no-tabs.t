@@ -8,6 +8,7 @@ use Test::NoTabs;
 
 my @files = (
     'lib/Test/CleanNamespaces.pm',
+    't/00-report-prereqs.dd',
     't/00-report-prereqs.t',
     't/basic.t',
     't/class_mop.t',

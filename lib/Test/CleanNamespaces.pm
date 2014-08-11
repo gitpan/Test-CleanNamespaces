@@ -5,8 +5,8 @@ package Test::CleanNamespaces;
 BEGIN {
   $Test::CleanNamespaces::AUTHORITY = 'cpan:FLORA';
 }
-# git description: v0.12-2-gd0f59c8
-$Test::CleanNamespaces::VERSION = '0.13';
+# git description: v0.13-4-g36788a3
+$Test::CleanNamespaces::VERSION = '0.14';
 # ABSTRACT: Check for uncleaned imports
 # KEYWORDS: testing namespaces clean dirty imports exports subroutines methods
 
@@ -224,7 +224,7 @@ Test::CleanNamespaces - Check for uncleaned imports
 
 =head1 VERSION
 
-version 0.13
+version 0.14
 
 =head1 SYNOPSIS
 
@@ -336,6 +336,10 @@ L<Sub::Install>
 
 L<MooseX::MarkAsMethods>
 
+=item *
+
+L<Dist::Zilla::Plugin::Test::CleanNamespaces>
+
 =back
 
 =head1 AUTHOR
@@ -351,6 +355,8 @@ the same terms as the Perl 5 programming language system itself.
 
 =head1 CONTRIBUTOR
 
-Karen Etheridge <ether@cpan.org>
+=for stopwords Florian Ragwitz
+
+Florian Ragwitz <rafl@debian.org>
 
 =cut
