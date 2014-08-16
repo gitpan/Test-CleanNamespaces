@@ -42,7 +42,7 @@ no_index:
 provides:
   Test::CleanNamespaces:
     file: lib/Test/CleanNamespaces.pm
-    version: '0.14'
+    version: '0.15'
 recommends:
   Package::Stash::XS: '0'
   Role::Tiny: '0'
@@ -51,7 +51,7 @@ requires:
   File::Find::Rule::Perl: '0'
   File::Spec::Functions: '0'
   Module::Runtime: '0'
-  Package::Stash: '0'
+  Package::Stash: '0.14'
   Sub::Exporter: '0'
   Sub::Identify: '0'
   Test::Builder: '0'
@@ -65,7 +65,7 @@ resources:
   bugtracker: https://rt.cpan.org/Public/Dist/Display.html?Name=Test-CleanNamespaces
   homepage: https://github.com/karenetheridge/Test-CleanNamespaces
   repository: https://github.com/karenetheridge/Test-CleanNamespaces.git
-version: '0.14'
+version: '0.15'
 x_Dist_Zilla:
   perl:
     version: '5.021002'
@@ -237,7 +237,7 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::Test::ReportPrereqs
       name: '@Author::ETHER/Test::ReportPrereqs'
-      version: '0.018'
+      version: '0.019'
     -
       class: Dist::Zilla::Plugin::Test::Portability
       name: '@Author::ETHER/Test::Portability'
@@ -343,7 +343,7 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::ReadmeAnyFromPod
       name: '@Author::ETHER/ReadmeAnyFromPod'
-      version: '0.142180'
+      version: '0.142250'
     -
       class: Dist::Zilla::Plugin::GithubMeta
       name: '@Author::ETHER/GithubMeta'
@@ -385,11 +385,11 @@ x_Dist_Zilla:
       class: Dist::Zilla::Plugin::Git::Contributors
       config:
         Dist::Zilla::Plugin::Git::Contributors:
-          include_authors: '1'
-          include_releaser: '0'
-          order_by: name
+          include_authors: '0'
+          include_releaser: '1'
+          order_by: commits
       name: '@Author::ETHER/Git::Contributors'
-      version: '0.004'
+      version: '0.006'
     -
       class: Dist::Zilla::Plugin::AutoPrereqs
       name: '@Author::ETHER/AutoPrereqs'
@@ -547,7 +547,7 @@ x_Dist_Zilla:
         Dist::Zilla::Plugin::Git::Tag:
           branch: ~
           signed: 0
-          tag: v0.14
+          tag: v0.15
           tag_format: v%v%t
           tag_message: v%v%t
           time_zone: local
@@ -614,7 +614,7 @@ x_Dist_Zilla:
           modules_from_features: ~
           to_relationship: recommends
       name: Prereqs::Soften
-      version: '0.004000'
+      version: '0.004001'
     -
       class: Dist::Zilla::Plugin::Test::CleanNamespaces
       name: Test::CleanNamespaces
@@ -682,4 +682,4 @@ x_Dist_Zilla:
     version: '5.020'
 x_authority: cpan:FLORA
 x_contributors:
-  - 'Florian Ragwitz <rafl@debian.org>'
+  - 'Karen Etheridge <ether@cpan.org>'

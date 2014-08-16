@@ -1,5 +1,8 @@
 Revision history for Test-CleanNamespaces
 
+0.15      2014-08-16 00:18:15Z
+  - bump Package::Stash prereq to ensure used methods are available
+
 0.14      2014-08-11 21:44:34Z
   - remove accidental dependency on Class::MOP (which turned into a circular
     dependency with Moose-2.1211)

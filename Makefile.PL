@@ -24,7 +24,7 @@ my %WriteMakefileArgs = (
     "File::Find::Rule::Perl" => 0,
     "File::Spec::Functions" => 0,
     "Module::Runtime" => 0,
-    "Package::Stash" => 0,
+    "Package::Stash" => "0.14",
     "Sub::Exporter" => 0,
     "Sub::Identify" => 0,
     "Test::Builder" => 0,
@@ -48,7 +48,7 @@ my %WriteMakefileArgs = (
     "overload" => 0,
     "parent" => 0
   },
-  "VERSION" => "0.14",
+  "VERSION" => "0.15",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -63,7 +63,7 @@ my %FallbackPrereqs = (
   "File::Spec" => 0,
   "File::Spec::Functions" => 0,
   "Module::Runtime" => 0,
-  "Package::Stash" => 0,
+  "Package::Stash" => "0.14",
   "Scalar::Util" => 0,
   "Sub::Exporter" => 0,
   "Sub::Identify" => 0,

@@ -13,6 +13,9 @@ __DATA__
 Florian
 Ragwitz
 rafl
+Karen
+Etheridge
+ether
 lib
 Test
 CleanNamespaces
