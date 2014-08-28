@@ -2,11 +2,8 @@ use strict;
 use warnings;
 
 package Test::CleanNamespaces;
-BEGIN {
-  $Test::CleanNamespaces::AUTHORITY = 'cpan:FLORA';
-}
-# git description: v0.14-1-ge35dfaa
-$Test::CleanNamespaces::VERSION = '0.15';
+# git description: v0.15-3-g28c4554
+$Test::CleanNamespaces::VERSION = '0.16';
 # ABSTRACT: Check for uncleaned imports
 # KEYWORDS: testing namespaces clean dirty imports exports subroutines methods
 
@@ -224,7 +221,7 @@ Test::CleanNamespaces - Check for uncleaned imports
 
 =head1 VERSION
 
-version 0.15
+version 0.16
 
 =head1 SYNOPSIS
 

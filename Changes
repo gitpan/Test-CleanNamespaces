@@ -1,5 +1,9 @@
 Revision history for Test-CleanNamespaces
 
+0.16      2014-08-28 23:55:47Z
+  - skip Moose-related tests for normal installs, to get out of circularity
+    hell if Moose is installed but broken and needing an upgrade
+
 0.15      2014-08-16 00:18:15Z
   - bump Package::Stash prereq to ensure used methods are available
 

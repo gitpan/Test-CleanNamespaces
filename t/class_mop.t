@@ -2,6 +2,9 @@ use strict;
 use warnings FATAL => 'all';
 
 use Test::More;
+plan skip_all => 'skipping for regular installs, due to possible circular dependency issues'
+    unless $ENV{AUTHOR_TESTING} || $ENV{AUTOMATED_TESTING};
+
 use Test::Requires 'Class::MOP';
 use if $ENV{AUTHOR_TESTING}, 'Test::Warnings';
 use Test::Deep;
